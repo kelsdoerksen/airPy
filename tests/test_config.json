@@ -1,0 +1,21 @@
+{
+       "region": {
+         "extent": "globe",
+         "lats": [-89.142, -88.029, -86.911, -85.791, -84.67, -83.549],
+         "lons": [-180.0, -178.875, -177.75, -176.625, -175.5, -174.375, -173.25]
+       },
+       "dataset": {
+          "name": "modis",
+          "collection": "MODIS/006/MCD12Q1",
+          "band": "LC_Type1",
+          "t_cadence": "yearly",
+          "min_date": "2001-01-01",
+          "max_date": "2021-01-01"
+    },
+      "query_year": 2015,
+      "query_month": "jan",
+      "analysis_type": "collection",
+      "buffer_size": "55500",
+      "save_dir": "/Users/kelseydoerksen/code/pyaq/src/tests",
+      "add_time": "True"
+}
