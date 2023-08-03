@@ -79,6 +79,8 @@ Tests for each script are stored in the `src/tests` folder. `pytest` is used to 
 ```
 pytest -q test_<script_name>.py
 ```
-
+## Citing
+If you found this code useful in your research, please cite via the following:
+Doerksen, K (2023), airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine,github.com/kelsdoerksen/airPy.
 
 
