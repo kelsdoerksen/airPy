@@ -17,17 +17,16 @@ setup(
     description="A Google Earth Engine extraction tool for air quality studies",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/kelsdoerksen/py-aq",
+    url="https://github.com/kelsdoerksen/airPy",
     author="Kelsey Doerksen",
     author_email="kelsey.doerksen@cs.ox.ac.uk",
     keywords="air quality, google earth engine, machine learning",
-    package_dir={'': 'src'},
-    packages=find_packages(where="src"),
+    package_dir={'': 'airpy'},
+    packages=find_packages(where="airPy"),
     python_requires=">=3.6, <4",
     entry_points={
         "console_scripts": [
-            "generate-config=pyaq.generate_config:main",
-            "run-pyaq=pyaq.gee_processing_tool_pyaq:main",
+            "run_airpy=airpy.run_airpy:main",
         ],
     },
 )
