@@ -75,9 +75,9 @@ Generates a config file named `config_australia_fire_2020-01-01_buffersize_55500
 To look at the help file for more information on paramaters, run the command ```python run_airpy.py --help```.
 
 ## Testing
-Tests for each script are stored in the `src/tests` folder. `pytest` is used to test scripts via the following command:
+Tests for each script are stored in the `airpy/tests` folder. `pytest` is used to test scripts in the `airpy` folder via the following command:
 ```
-pytest -q test_<script_name>.py
+python3 -m pytest
 ```
 ## Citing
 If you found this code useful in your research, please cite via the following:
