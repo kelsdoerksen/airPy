@@ -28,7 +28,7 @@ git clone git@github.com:kelsdoerksen/airPy.git
 ```
 Navigate to the airPy folder and install the package using `pip`.
 ```
-pip install .
+pip install airpy
 ```
 Install package dependencies using
 ```
@@ -63,7 +63,7 @@ and specify the various parameters of the data of interest. The available config
     *   `toar2`: Locations of TOAR2 stations based on TOAR2 metadata
 * `--date`: Date of query. Must be in format 'YYYY-MM-DD'
 * `--analysis_type`: Type of analysis for data extraction. Must be one of collection, images.
-* `--add_time`: Specify if time component should be added to collection xarray. Useful for integrating into time series ML datasets.
+* `--add_time`: Specify if time component should be added to collection xarray. Useful for integrating into time series ML datasets. One of 'y' or 'n'.
 * `--buffer_size`: Specify region of interest (ROI) buffer extent. Units in metres.
 * `--config-dir`: Specify the output directory for the config file.
 * `--save_dir`: Specify run rave directory.
@@ -79,6 +79,7 @@ Tests for each script are stored in the `src/tests` folder. `pytest` is used to 
 ```
 pytest -q test_<script_name>.py
 ```
+## Citing
+If you found this code useful in your research, please cite via the following:
 
-
-
+Doerksen, K (2023), airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine, github.com/kelsdoerksen/airPy.

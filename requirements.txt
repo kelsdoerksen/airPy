@@ -58,7 +58,7 @@ more-itertools==9.1.0
 multidict==6.0.4
 munkres==1.1.4
 numexpr==2.8.4
-numpy==1.23.5
+numpy==1.22.3
 packaging==22.0
 pandas==1.5.2
 parso==0.8.3
