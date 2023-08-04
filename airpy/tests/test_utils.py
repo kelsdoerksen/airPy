@@ -2,7 +2,7 @@
 Test functions in utils
 """
 
-from airpy import Utils
+from utils import Utils
 import json
 import ee
 import numpy as np
@@ -13,7 +13,7 @@ import pandas as pd
 # Defining some constants
 config_file = 'test_config.json'
 
-with open('{}'.format(config_file), 'r') as file:
+with open('../airpy/tests/{}'.format(config_file), 'r') as file:
     config_data = json.load(file)
 utils = Utils(config_data)
 

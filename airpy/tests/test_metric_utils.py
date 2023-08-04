@@ -1,8 +1,7 @@
 """
 Test functions in metric utils
 """
-
-import airpy.metric_utils as mu
+import metric_utils as mu
 import numpy as np
 
 test_array = np.array([[3,3,5], [160, 160, 3]])

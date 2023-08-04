@@ -1,0 +1,33 @@
+{
+    "region": {
+        "extent": "australia",
+        "lats": [
+            -49.906,
+            -48.785,
+            -47.663,
+            -46.542,
+            -45.42
+        ],
+        "lons": [
+            110.25,
+            111.375,
+            112.5,
+            113.625,
+            114.75
+        ]
+    },
+    "dataset": {
+        "name": "fire",
+        "collection": "ESA/CCI/FireCCI/5_1",
+        "band": "LandCover",
+        "t_cadence": "yearly",
+        "min_date": "2001-01-01",
+        "max_date": "2020-12-01"
+    },
+    "query_year": 2020,
+    "query_month": "jan",
+    "analysis_type": "collection",
+    "buffer_size": "55500",
+    "save_dir": "/Users/kelseydoerksen/Desktop",
+    "add_time": false
+}

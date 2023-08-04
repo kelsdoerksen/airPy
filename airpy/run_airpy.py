@@ -128,9 +128,8 @@ def getRequests(config_data):
 def getResult(index, point):
     """
     Handle HTTP requests to download GEE image
-    :param point: lon, lat of interest
-    :param buffer_size: Size of buffer zone extent
-    :return:
+    :param: point: lat, lon point with config information
+    :return: extracted GEE dataset features
     """
     # Generate img from given point
     collection = point['gee_data']

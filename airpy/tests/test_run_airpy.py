@@ -1,15 +1,13 @@
 """
 Test run_airpy pipeline
 """
-
-from airpy.run_airpy import *
+from run_airpy import *
 import xarray as xr
-import airpy.utils as utils
 import json
 
 config_file = 'test_config.json'
 
-with open('{}'.format(config_file), 'r') as file:
+with open('../airpy/tests/{}'.format(config_file), 'r') as file:
     config_data = json.load(file)
 
 ee.Initialize()
@@ -21,5 +19,5 @@ def test_getRequests():
 
 def test_getResult():
     """Test function to calculate GEE results"""
-    # Don't thin this is working yet
-    assert type(getResult(None, config_data)) is xr.core.dataset.Dataset
+    items = getRequests(config_data)
+    assert type(getResult(0, items[0])) is xr.core.dataset.Dataset

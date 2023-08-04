@@ -1,9 +1,8 @@
-# noinspection PyInterpreter
 """
 Test functions in generate_config
 """
 import pytest
-from airpy.generate_config import GenerateConfig
+from generate_config import GenerateConfig
 
 
 class TestGenerateConfig():
