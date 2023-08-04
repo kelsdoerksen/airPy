@@ -12,7 +12,7 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
-    name="pyaq",
+    name="airpy",
     version="1.0.0",
     description="A Google Earth Engine extraction tool for air quality studies",
     long_description=long_description,
