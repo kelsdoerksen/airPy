@@ -82,4 +82,4 @@ python3 -m pytest
 ## Citing
 If you found this code useful in your research, please cite via the following:
 
-Doerksen, K (2023), airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine, github.com/kelsdoerksen/airPy.
+Doerksen, K., (2023). airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine, github.com/kelsdoerksen/airPy.
