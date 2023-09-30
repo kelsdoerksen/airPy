@@ -5,16 +5,6 @@ tags:
   - air quality
   - remote sensing
   - google earth engine
-authors:
-  - name: Anonymous while under review
-    orcid: 0000-0002-5126-890X
-    equal-contrib: true
-    affiliation: "1, 2"
-affiliations:
- - name: anonymous while under review
-   index: 1
- - name: anonymous while under review
-   index: 2
 date: 18 April 2023
 bibliography: paper.bib
 
