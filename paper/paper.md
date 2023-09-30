@@ -8,6 +8,18 @@ tags:
 date: 18 April 2023
 bibliography: paper.bib
 
+authors:
+  - name: Anonymous
+    orcid:
+    equal-contrib: true
+    affiliation: "1, 2"
+affiliations:
+ - name: Anonymous
+   index: 1
+ - name: Anonymous
+   index: 2
+
+
 ---
 
 # Summary
