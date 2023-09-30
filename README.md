@@ -24,7 +24,7 @@ The diagram below depicts an example of the extraction process over the extent o
 ## Installation
 Clone the repo: 
 ```
-git clone git@github.com:kelsdoerksen/airPy.git
+git clone git@github.com:<AnonymousWhileUnderReview>/airPy.git
 ```
 Navigate to the airPy folder and install the package using `pip`.
 ```
