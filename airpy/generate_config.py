@@ -1,7 +1,7 @@
 '''
 Generate configuration dictionary and save as json file
 pyaq/configs/<config_filename> for airpy pipeline
-@author: kdoerksen
+@author: anonymous while under review
 '''
 
 import json
