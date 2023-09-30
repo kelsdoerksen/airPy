@@ -6,14 +6,14 @@ tags:
   - remote sensing
   - google earth engine
 authors:
-  - name: Kelsey Doerksen
+  - name: Anonymous while under review
     orcid: 0000-0002-5126-890X
     equal-contrib: true
     affiliation: "1, 2"
 affiliations:
- - name: University of Oxford
+ - name: anonymous while under review
    index: 1
- - name: Jet Propulsion Laboratory, California Institute of Technology
+ - name: anonymous while under review
    index: 2
 date: 18 April 2023
 bibliography: paper.bib
@@ -42,7 +42,6 @@ The `run_airpy` command runs the `airPy` pipeline with the user-specified config
 | *Figure 2. Example of `airPy` GEE extraction. For a given latitude, longitude point and specified buffer, draw a circular buffer zone to extract land surface data from to then process features of interest (i.e. maximum population per grid point from World Population dataset, percent of each land cover class from MODIS dataset, etc.)* |
 
 # Acknowledgements
-
-The `airPy` package was developed to support the NASA Jet Propulsion Laboratory’s Scientific Understanding from Data Science Air Quality initiative. K. Doerksen was funded through the Oxford-Singapore Human-Machine Collaboration Programme, supported by a gift from Amazon Web Services, studentship from Satellite Applications Catapult and Deimos Space, and the EPSRC Centre for Doctoral Training in Autonomous Intelligent Machines and Systems through grant number EP/S0245050/1.
+Anonymous while under review.
 
 # References
