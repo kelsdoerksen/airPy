@@ -28,7 +28,7 @@ class ProcessorModules():
         """
         lat, lon = self.point['coordinates'][1], self.point['coordinates'][0]
         collection = ee.ImageCollection(self.collection). \
-            filterDate('{}-01-01'.format(self.year, '{}-01-01'.format(self.year + 1)))
+            filterDate('{}-01-01'.format(self.year), '{}-01-01'.format(self.year + 1))
         # Select band type
         data = collection.select(self.band)
         # Get img from collection based on temporal cadence
