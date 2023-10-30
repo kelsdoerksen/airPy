@@ -1,5 +1,5 @@
 '''
-Ingests py-aq config, queries GEE dataset of interest, process and return .nc file
+Creates airypy config, queries GEE dataset of interest, process and return .nc file
 @author: kdoerksen
 '''
 
