@@ -24,7 +24,7 @@ The diagram below depicts an example of the extraction process over the extent o
 ## Installation
 Clone the repo: 
 ```
-git clone git@github.com:<AnonymousWhileUnderReview>/airPy.git
+git clone git@github.com:kelseydoerksen/airPy.git
 ```
 Navigate to the airPy folder and install the package using `pip`.
 ```
@@ -80,4 +80,4 @@ Tests for each script are stored in the `airpy/tests` folder. `pytest` is used t
 python3 -m pytest
 ```
 ## Citing
-If you found this code useful in your research, please cite via the following: Removed while under review.
+If you found this code useful in your research, please cite via the following: K.Doerksen "airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine", NASA Jet Propulsion Lab, University of Oxford, July 2023.
