@@ -26,13 +26,9 @@ Clone the repo:
 ```
 git clone git@github.com:kelsdoerksen/airPy.git
 ```
-Navigate to the airPy folder and install the package using `pip`.
+Navigate to the airPy folder and install the package and dependencies using `pip`.
 ```
-pip install airpy
-```
-Install package dependencies using
-```
-pip install -r requirements.txt  
+pip install . -r requirements.txt
 ```
 
 
