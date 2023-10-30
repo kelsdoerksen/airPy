@@ -9,9 +9,9 @@ import multiprocessing
 from retry import retry
 import logging
 import time
-from utils import Utils
-from processor_modules import ProcessorModules
-from generate_config import GenerateConfig
+from .utils import Utils
+from .processor_modules import ProcessorModules
+from .generate_config import GenerateConfig
 import datetime
 
 

@@ -2,7 +2,7 @@
 Test functions in generate_config
 """
 import pytest
-from generate_config import GenerateConfig
+from airpy.generate_config import GenerateConfig
 
 
 class TestGenerateConfig():
