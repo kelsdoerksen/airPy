@@ -9,14 +9,14 @@ date: 18 April 2023
 bibliography: paper.bib
 
 authors:
-  - name: Anonymous
-    orcid:
+  - name: Kelsey Doerksen
+    orcid: 0000-0002-5126-890X
     equal-contrib: true
     affiliation: "1, 2"
 affiliations:
- - name: Anonymous
+ - name: Univeristy of Oxford, Department of Computer Science, Oxford Theoretical and Machine Learning Group
    index: 1
- - name: Anonymous
+ - name: NASA Jet Propulsion Laboratory
    index: 2
 
 
