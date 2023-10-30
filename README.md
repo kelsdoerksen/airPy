@@ -80,4 +80,4 @@ Tests for each script are stored in the `airpy/tests` folder. `pytest` is used t
 python3 -m pytest
 ```
 ## Citing
-If you found this code useful in your research, please cite via the following: K.Doerksen "airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine", NASA Jet Propulsion Lab, University of Oxford, July 2023.
+If you found this code useful in your research, please cite via the following: K.Doerksen "airPy: Generating AI-ready datasets in python for air quality studies using Google Earth Engine", University of Oxford, NASA Jet Propulsion Lab, 2023.
