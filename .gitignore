@@ -130,3 +130,5 @@ dmypy.json
 
 # PyCharm IDE
 .idea/
+
+/airpy_save_dir
