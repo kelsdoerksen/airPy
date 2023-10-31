@@ -1,8 +1,8 @@
 """
 Test functions in processor_modules
 """
-from processor_modules import ProcessorModules
-from utils import Utils
+from airpy.processor_modules import ProcessorModules
+from airpy.utils import Utils
 import xarray as xr
 import ee
 

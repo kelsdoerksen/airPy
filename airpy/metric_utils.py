@@ -4,7 +4,7 @@ Module for calculating metrics from GEE data
 
 import numpy as np
 import copy
-from landcover_constants import MODIS_LC, FIRE_LC
+from .landcover_constants import MODIS_LC, FIRE_LC
 
 class MetricUtils():
     def __init__(self, img_arr):

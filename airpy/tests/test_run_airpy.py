@@ -1,13 +1,14 @@
 """
 Test run_airpy pipeline
 """
-from run_airpy import *
+from pathlib import Path
+from airpy.run_airpy import *
 import xarray as xr
 import json
 
 config_file = 'test_config.json'
 
-with open('../airpy/tests/{}'.format(config_file), 'r') as file:
+with (Path(__file__).parent / config_file).open() as file:
     config_data = json.load(file)
 
 ee.Initialize()

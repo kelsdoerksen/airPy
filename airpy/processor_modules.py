@@ -2,10 +2,10 @@
 Module for processing GEE datasets
 """
 
-from metric_utils import MetricUtils
+from .metric_utils import MetricUtils
 import numpy as np
 import ee
-from landcover_constants import MODIS_LC, FIRE_LC
+from .landcover_constants import MODIS_LC, FIRE_LC
 
 
 class ProcessorModules():
