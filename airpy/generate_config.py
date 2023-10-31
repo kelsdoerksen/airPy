@@ -8,6 +8,8 @@ import json
 from datetime import datetime
 import os
 
+from . import configs
+
 
 class GenerateConfig():
     def __init__(self, gee_data, region, date, analysis_type, add_time,
@@ -26,12 +28,7 @@ class GenerateConfig():
         Query json for GEE collection of interest
         :return: GEE collection dictionary
         """
-        collection_file = '../configs/gee_collections.json'
-        if not os.path.isfile(collection_file):
-            raise FileNotFoundError
-        else:
-            with open('{}'.format(collection_file), 'r') as file:
-                data_collection = json.load(file)
+        data_collection = configs.GEE_COLLECTIONS
 
         if self.gee_data not in data_collection['gee_dataset'].keys():
             raise(ValueError('Dataset not supported. Please select one of modis, fire, population, or nightlight'))
@@ -73,14 +70,12 @@ class GenerateConfig():
         """
         # Check if region is TOAR2 locations only
         if self.region == 'toar2':
-            with open('../configs/toar_locations.json', 'r') as file:
-                toar_vals = json.load(file)
+            toar_vals = configs.TOAR_LOCATIONS
             return {'extent': '{}'.format(self.region), 'lats': toar_vals['toar2']['lats'],
                     'lons': toar_vals['toar2']['lons']}
 
         # get globe vals
-        with open('../configs/globe_coords.json', 'r') as file:
-            globe_vals = json.load(file)
+        globe_vals = configs.GLOBE_COORDS
 
         # Check aus, west, east, europe & na bounds
         bbox_dict = {
