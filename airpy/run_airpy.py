@@ -87,9 +87,12 @@ def getRequests(config_data):
     analysis_type = config_data['analysis_type']
     save_dir = config_data['save_dir']
 
+    regions_list = ['globe', 'europe', 'asia', 'australia', 'north_america', 'west_europe',
+                    'east_europe', 'west_north_america', 'east_north_america']
+
     points = []
 
-    if config_data['region']['extent'] == 'toar2':
+    if config_data['region']['extent'] not in regions_list:
         lats = config_data['region']['lats']
         lons = config_data['region']['lons']
         for k in range(len(lats)):
