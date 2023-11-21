@@ -173,7 +173,11 @@ def saveResults(config_data, results_list):
     utils = Utils(config_data)
     if config_data['analysis_type'] == 'collection':
         # format
-        results_xr = utils.combine_data(results_list)
+        # if only one point queried, results_list[0] = results_xr
+        if len(results_list) == 1:
+            results_xr = results_list[0]
+        else:
+            results_xr = utils.combine_data(results_list)
         # add time if specified by user
         if config_data['add_time']:
             results_xr = utils.add_time_data(results_xr)

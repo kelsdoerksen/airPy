@@ -71,7 +71,7 @@ class GenerateConfig():
         :param region: region on globe for analysis
         :return: regional lat,lon bounds
         """
-        # Check if region is TOAR2 locations only
+        # Check if region is TOAR2 locations
         if self.region == 'toar2':
             with open('../configs/toar_locations.json', 'r') as file:
                 toar_vals = json.load(file)
@@ -82,7 +82,6 @@ class GenerateConfig():
         with open('../configs/globe_coords.json', 'r') as file:
             globe_vals = json.load(file)
 
-        # Check aus, west, east, europe & na bounds
         bbox_dict = {
             'globe':
                 {'lats': [-90, 90], 'lons': [-180, 180]},
@@ -109,8 +108,16 @@ class GenerateConfig():
         accepted_locations = list(bbox_dict.keys())
         accepted_locations.append('toar2')
 
+        # Check if user specified a custom region path that exists
         if self.region not in accepted_locations:
-            raise ValueError('Region specified must be one of: {}'.format(accepted_locations))
+            if not os.path.isfile('{}'.format(self.region)):
+                raise ValueError('Region specified must be one of: {}'.format(accepted_locations))
+            else:
+                print('User specified custom region at path: {}'.format(self.region))
+                with open('{}'.format(self.region), 'r') as file:
+                    custom_vals = json.load(file)
+                return {'extent': 'custom', 'lats': custom_vals['lats'],
+                        'lons': custom_vals['lons']}
 
         bbox = bbox_dict[self.region]
 
@@ -153,8 +160,8 @@ class GenerateConfig():
             config_dict['add_time'] = False
 
         # Write to json file
-        with open('{}/config_{}_{}_{}_buffersize_{}_{}.json'.format(self.configs_dir, self.region, self.gee_data,
-                                                                    self.date, self.buffer_size,
+        with open('{}/config_{}_{}_{}_buffersize_{}_{}.json'.format(self.configs_dir, config_dict['region']['extent'],
+                                                                    self.gee_data, self.date, self.buffer_size,
                                                                     self.analysis_type), 'w') as json_file:
             json.dump(config_dict, json_file, indent=4)
 
