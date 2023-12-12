@@ -13,6 +13,7 @@ from utils import Utils
 from processor_modules import ProcessorModules
 from generate_config import GenerateConfig
 import datetime
+import pandas as pd
 
 
 # Initialize ee
@@ -174,6 +175,11 @@ def saveResults(config_data, results_list):
     """
     # initialize utils to save and format with config data params
     utils = Utils(config_data)
+
+    # if custom region defined, save as df
+    if config_data['region']['extent'] == 'custom':
+        utils.save_custom_df(results_list)
+
     if config_data['analysis_type'] == 'collection':
         # format
         # if only one point queried, results_list[0] = results_xr

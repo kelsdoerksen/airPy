@@ -197,3 +197,47 @@ class Utils():
             h5_dataset.attrs['lat'] = results_data['lat']
             h5_dataset.attrs['lon'] = results_data['lon']
             h5_dataset.attrs['year'] = self.config_data['year']
+
+
+    def save_custom_df(self, results_data):
+        """
+        If custom lat, lon json list specified, save as
+        a dataframe of lat, lon and variables respectively
+        """
+        save_dir = self.config_data['save_dir']
+        name = self.config_data['dataset']['name']
+        year = self.config_data['query_year']
+        month = self.config_data['query_month']
+        buffer = self.config_data['buffer_size']
+        cadence = self.config_data['dataset']['t_cadence']
+        region = self.config_data['region']['extent']
+        band = self.config_data['dataset']['band']
+
+        # Create save directory if it does not already exist
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
+        if 'add_time' in self.config_data:
+            add_time = 'with_time'
+        else:
+            add_time = 'no_time'
+
+        if cadence == 'yearly':
+            save_name = '{}_{}_{}_{}_buffersize_{}_{}'.format(name, band, year, region, buffer, add_time)
+        if cadence == 'monthly':
+            save_name = '{}_{}_{}_{}_{}_buffersize_{}_{}'.format(name, band, month, year, region, buffer, add_time)
+
+        # Get list of variables and make df column names
+        column_names = ['lat', 'lon']
+        for i in results_data[0].data_vars:
+            column_names.append(i)
+
+        data = []
+        for result in results_data:
+            data_list = [float(result.lat.values), float(result.lon.values)]
+            for i in result.data_vars:
+                data_list.append(float(result[i].values))
+            data.append(data_list)
+
+        df = pd.DataFrame(data, columns=column_names)
+        df.to_csv('{}/{}.csv'.format(save_dir, save_name))
