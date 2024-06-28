@@ -28,6 +28,6 @@
     "query_month": "jan",
     "analysis_type": "collection",
     "buffer_size": "55500",
-    "save_dir": "/Users/kelseydoerksen/Desktop",
+    "save_dir": "./airpy_save_dir",
     "add_time": false
 }
