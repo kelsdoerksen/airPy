@@ -3,34 +3,62 @@
         "modis": {
             "name": "modis",
             "collection": "MODIS/006/MCD12Q1",
-            "band": "LC_Type1",
+            "supported_bands": ["LC_Type1"],
+            "default_band": "LC_Type1",
             "t_cadence": "yearly",
             "min_date": "2001-01-01",
-            "max_date": "2021-01-01"
+            "max_date": "2021-01-01",
+            "resolution": "500"
         },
-    "population": {
-        "name": "pop",
-        "collection": "CIESIN/GPWv411/GPW_Population_Density",
-        "band": "population_density",
-        "t_cadence": "yearly",
-        "min_date": "2000-01-01",
-        "max_date": "2020-01-01"
-    },
-    "fire": {
-        "name": "fire",
-        "collection": "ESA/CCI/FireCCI/5_1",
-        "band": "LandCover",
-        "t_cadence": "yearly",
-        "min_date": "2001-01-01",
-        "max_date": "2020-12-01"
-    },
-    "nightlight": {
-        "name": "nightlight",
-        "collection": "NOAA/VIIRS/DNB/MONTHLY_V1/VCMCFG",
-        "band": "avg_rad",
-        "t_cadence": "monthly",
-        "min_date": "2012-04-01",
-        "max_date": "2023-01-01"
-    }
+        "population": {
+            "name": "pop",
+            "collection": "CIESIN/GPWv411/GPW_Population_Density",
+            "supported_bands": ["population_density"],
+            "default_band": "population_density",
+            "t_cadence": "yearly",
+            "min_date": "2000-01-01",
+            "max_date": "2020-01-01",
+            "resolution": "927.67"
+        },
+        "fire": {
+            "name": "fire",
+            "collection": "ESA/CCI/FireCCI/5_1",
+            "supported_bands": ["LandCover"],
+            "default_band": "LandCover",
+            "t_cadence": "yearly",
+            "min_date": "2001-01-01",
+            "max_date": "2020-12-01",
+            "resolution": "250"
+        },
+        "nightlight": {
+            "name": "nightlight",
+            "collection": "NOAA/VIIRS/DNB/MONTHLY_V1/VCMCFG",
+            "supported_bands": ["avg_rad", "cf_cvg"],
+            "default_band": "avg_rad",
+            "t_cadence": "monthly",
+            "min_date": "2012-04-01",
+            "max_date": "2024-02-01",
+            "resolution": "463.83"
+        },
+        "human_settlement_layer_built_up": {
+            "name": "human_settlement_layer_built_up",
+            "collection": "JRC/GHSL/P2023A/GHS_BUILT_C/2018",
+            "supported_bands": ["built_characteristics"],
+            "default_band": "built_characteristics",
+            "t_cadence": "yearly",
+            "min_date": "2018-01-01",
+            "max_date": "2018-12-31",
+            "resolution": "10"
+        },
+        "global_human_modification": {
+            "name": "global_human_modification",
+            "collection": "CSP/HM/GlobalHumanModification",
+            "supported_bands": ["gHM"],
+            "default_band": "gHM",
+            "t_cadence": "yearly",
+            "min_date": "2016-01-01",
+            "max_date": "2016-12-31",
+            "resolution": "1000"
+        }
     }
 }
