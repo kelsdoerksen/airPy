@@ -17,7 +17,7 @@ setup(
     description="A Google Earth Engine extraction tool for air quality studies",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/kelsdoerksen/airPy",
+    url="https://test.pypi.org/project/airpy/",
     author="Kelsey Doerksen",
     author_email="kelsey.doerksen@cs.ox.ac.uk",
     keywords="air quality, google earth engine, machine learning",
