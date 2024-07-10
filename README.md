@@ -15,7 +15,7 @@
 </div>
 
 ## Description
-The airPy package was developed to extract high-resolution satellite data from Google Earth Engine and generate statistical metrics with the output in the form of Machine Learning-ready features for air pollution studies.
+The airPy tool was developed to extract high-resolution satellite data from Google Earth Engine and generate statistical metrics with the output in the form of Machine Learning-ready features for air pollution studies.
 The code in this repository performs the following tasks:
 
 **1. Download satellite data from Google Earth Engine**
@@ -45,13 +45,9 @@ Clone the repo:
 ```
 git clone git@github.com:kelsdoerksen/airPy.git
 ```
-Navigate to the airPy folder and install the package using `pip`.
+Navigate to the airPy folder and install the package and dependencies using `pip`.
 ```
-pip install airpy
-```
-Install package dependencies using
-```
-pip install -r requirements.txt  
+pip install . -r requirements.txt  
 ```
 
 To use the Google Earth Engine API, you must create and authenticate a Google Earth Engine account. Information on the Earth Engine Python API can be found [here](https://developers.google.com/earth-engine/tutorials/community/intro-to-python-api). 
