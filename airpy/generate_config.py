@@ -1,18 +1,20 @@
 '''
 Generate configuration dictionary and save as json file
-pyaq/configs/<config_filename> for airpy pipeline
+airpy/configs/<config_filename> for airpy pipeline
 @author: anonymous while under review
 '''
 
 import json
 from datetime import datetime
 import os
+from utils import Utils
 
 
 class GenerateConfig():
     def __init__(self, gee_data, region, date, analysis_type, add_time,
-                 buffer_size, configs_dir, save_dir):
+                 buffer_size, configs_dir, save_dir, band=None, save_type=None):
         self.gee_data = gee_data
+        self.band = band
         self.region = region
         self.date = date
         self.analysis_type = analysis_type
@@ -20,6 +22,7 @@ class GenerateConfig():
         self.buffer_size = buffer_size
         self.configs_dir = configs_dir
         self.save_dir = save_dir
+        self.save_type = save_type
 
     def get_gee_collection_data(self):
         """
@@ -34,7 +37,8 @@ class GenerateConfig():
                 data_collection = json.load(file)
 
         if self.gee_data not in data_collection['gee_dataset'].keys():
-            raise(ValueError('Dataset not supported. Please select one of modis, fire, population, or nightlight'))
+            raise (ValueError('Dataset not supported. Please select one of modis, fire, population, nightlight,'
+                              'human_settlement_layer_built_up or global_human_modification'))
 
         return data_collection['gee_dataset'][self.gee_data]
 
@@ -129,9 +133,24 @@ class GenerateConfig():
 
         return {'extent': '{}'.format(self.region), 'lats': lats, 'lons': lons}
 
+    def get_band(self, gee_data):
+        """
+        Get either user-specified or default dataset band
+        from GEE collection
+        """
+        if self.band is None:
+            band = gee_data['default_band']
+            print('User did not specify band, defaulting to: {}'.format(band))
+            return band
+        else:
+            if self.band not in gee_data['supported_bands']:
+                raise ValueError('Band specified must be one of: {}'.format(gee_data['supported_bands']))
+            else:
+                return self.band
+
     def generate_config_dict(self):
         """
-        Generate config dictionary to use in pyaq pipeline
+        Generate config dictionary to use in airPy pipeline
         :return: dictionary of configuration data
         """
         config_dict = {}
@@ -147,14 +166,19 @@ class GenerateConfig():
         # Get boundary box
         coords = self.get_boundary()
 
+        # Get band
+        band = self.get_band(data)
+
         config_dict['region'] = coords
         config_dict['dataset'] = data
+        config_dict['band'] = band
         config_dict.update(query_dates)
         config_dict['analysis_type'] = self.analysis_type
         config_dict['buffer_size'] = self.buffer_size
         config_dict['save_dir'] = self.save_dir
+        config_dict['file_type'] = self.save_type
 
-        if self.add_time == 'y':
+        if self.add_time == 'True':
             config_dict['add_time'] = True
         else:
             config_dict['add_time'] = False

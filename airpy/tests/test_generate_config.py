@@ -9,13 +9,14 @@ class TestGenerateConfig():
     def setup_method(self):
         # setup method for GenerateConifg class to test various functions
         self.gee_data = None
-        self.region = 'Canada'  # setting to bad region to raise exception
-        self.date = '1999-17-01'    # setting to bad date to raise exception
+        self.region = 'Canada'  # setting to excluded region to raise exception
+        self.date = '1999-17-01'    # setting to excluded date to raise exception
         self.analysis_type = 'collection'
         self.add_time = 'y'
         self.buffer_size = 1
         self.configs_dir = None
         self.save_dir = None
+        self.resolution = 1
 
     def test_check_query_date(self):
         """Test function that checks query date"""
@@ -23,7 +24,10 @@ class TestGenerateConfig():
         data_collections = [{"name": "modis", "min_date": "2001-01-01", "max_date": "2021-01-01"},
                             {"name": "pop", "min_date": "2000-01-01", "max_date": "2020-01-01"},
                             {"name": "fire", "min_date": "2001-01-01", "max_date": "2020-12-01"},
-                            {"name": "nightlight", "min_date": "2012-04-01", "max_date": "2023-01-01"}]
+                            {"name": "nightlight", "min_date": "2012-04-01", "max_date": "2024-02-01"},
+                            {"name": "human_settlement_layer_built_up", "min_date": "2018-01-01",
+                             "max_date": "2018-12-31"},
+                            {"name": "global_human_modification", "min_date": "2016-01-01", "max_date": "2016-12-31"}]
 
         for d in data_collections:
             with pytest.raises(ValueError):

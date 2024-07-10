@@ -24,6 +24,8 @@ true_ds = xr.Dataset(
             lon=(["lon"], [0, 1]),
             lat=(["lat"], [2, 3])))
 
+true_df = true_ds.to_dataframe(dim_order=None)
+
 ee.Initialize()
 cadence = config_data['dataset']['t_cadence']
 month = config_data['query_month']
@@ -64,12 +66,26 @@ def test_get_buffer_extent():
     assert utils.get_buffer_extent(lat, lon, buffer, default_class, gee_img)
 
 
+def test_get_allowable_buffer_size():
+    """Test function to get allowable buffer size from GEE max pixel limit"""
+    ee.Initialize()
+    resolution = 500
+    assert utils.get_allowable_buffer_size(resolution)
+
+
+def test_get_resampled_resolution():
+    ee.Initialize()
+    buffer_size = 40000
+    assert utils.get_resampled_resolution_size(buffer_size)
+
+
 def test_make_dataset():
     """Test function to make xarray dataset from array"""
     var = 'test'
     lats = [2, 3]
     lons = [0, 1]
     assert utils.make_dataset(test_array, var, lats, lons) == true_ds
+
 
 def test_combine_data():
     """Test function to combine multiple xarrays"""
@@ -82,6 +98,7 @@ def test_combine_data():
     results = [ds_1, ds_2]
     assert type(utils.combine_data(results)) is xr.core.dataset.Dataset
 
+
 def test_save_collection():
     """
     Test function to save GEE collection results
@@ -91,9 +108,51 @@ def test_save_collection():
     assert utils.save_collection(true_ds) is True
 
 
+def test_save_custom_df():
+    """
+    Test function to save GEE results as csv
+    If type not panaas dataframe, save will fail
+    """
+    assert type(true_df) is pd.DataFrame
+
+
 def test_save_img():
     """
     Test function to save GEE image results
     If type is not xarray dataset, hdf save will fail
     """
     assert type(true_ds) is xr.core.dataset.Dataset
+
+
+def test_check_in_arctic_or_antarctic():
+    """
+    Test function to check if point in
+    arctic or antarctica
+    """
+    lat = 81
+    assert utils.check_in_arctic_or_antarctic(lat)
+
+
+def test_check_water_bodies():
+    """
+    Test function to check if point in 
+    oceans
+    """
+    lat = 40
+    lon = 160
+    assert utils.check_water_bodies(lat, lon)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

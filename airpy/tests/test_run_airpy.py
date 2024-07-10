@@ -21,3 +21,4 @@ def test_getResult():
     """Test function to calculate GEE results"""
     items = getRequests(config_data)
     assert type(getResult(0, items[0])) is xr.core.dataset.Dataset
+    assert len(getResult(0, items[0])) > 0

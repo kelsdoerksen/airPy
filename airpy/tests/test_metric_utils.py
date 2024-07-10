@@ -18,8 +18,8 @@ true_modis_pct_cov = {
     17: {'class': 'water_bds', 'pct_cov': 0}}
 
 true_fire_pct_cov = {
-    0: {'class': 'crop_rain', 'pct_cov': 0}, 20: {'class': 'crop_irr', 'pct_cov': 0},
-    30: {'class': 'crop_veg', 'pct_cov': 0}, 40: {'class': 'veg_crop', 'pct_cov': 0},
+    10: {'class': 'crop_rain', 'pct_cov': 0}, 20: {'class': 'crop_irr', 'pct_cov': 0},
+    30: {'class': 'mosaic_crop', 'pct_cov': 0}, 40: {'class': 'mosaic_veg', 'pct_cov': 0},
     50: {'class': 'broad_ever', 'pct_cov': 0}, 60: {'class': 'broad_decid', 'pct_cov': 0},
     70: {'class': 'needle_ever', 'pct_cov': 0}, 80: {'class': 'needle_decid', 'pct_cov': 0},
     90: {'class': 'tree_mixed', 'pct_cov': 0}, 100: {'class': 'tree_shrub_herb', 'pct_cov': 0},

@@ -8,8 +8,11 @@ import pandas as pd
 import ee
 import h5py
 import os
+import numpy as np
+import math
 
-class Utils():
+
+class Utils:
     def __init__(self, config_data=None):
         self.config_data = config_data
 
@@ -83,7 +86,7 @@ class Utils():
             return img
         if collect_cadence == 'monthly':
             mon = months_dict[analysis_month]
-            if analysis_month in ['jan', 'feb', 'mar', 'apr', 'may', 'june' ,'july', 'aug']:
+            if analysis_month in ['jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug']:
                 im = data.filterDate('{}-{}-01'.format(analysis_year, mon),
                                      '{}-0{}-01'.format(analysis_year, int(mon[1]) + 1))
                 img = im.first()
@@ -104,6 +107,27 @@ class Utils():
                 img = im.first()
                 return img
 
+    def get_allowable_buffer_size(self, resolution):
+        """
+        param resolution: dataset resolution
+        :return:
+        Returns the maximum allowable buffer size for the given dataset resolution
+        """
+        max_allowable_pixels = 262144
+        max_allowable_radius = np.sqrt(max_allowable_pixels/math.pi)
+        allowable_buffer_size = max_allowable_radius * float(resolution)
+        return float(allowable_buffer_size)
+
+    def get_resampled_resolution_size(self, buffer_size):
+        """
+        Calculate the resampled resolution size based on buffer_size
+        """
+        max_allowable_pixels = 262144
+        max_allowable_radius = np.sqrt(max_allowable_pixels / math.pi)
+        # Doubling for redundancy
+        allowable_resolution = (float(buffer_size)/max_allowable_radius)*2
+        return float(allowable_resolution)
+
     def get_buffer_extent(self, lat, lon, buffer_size, default_class, gee_img):
         """
         :param lat: latitude point
@@ -118,6 +142,7 @@ class Utils():
         roi = point.buffer(int(buffer_size))
         # Sample img over roi
         sq_extent = gee_img.sampleRectangle(region=roi, defaultValue=default_class)
+
         return sq_extent
 
     def make_dataset(self, array, var, lats, lons):
@@ -161,6 +186,7 @@ class Utils():
         buffer = self.config_data['buffer_size']
         cadence = self.config_data['dataset']['t_cadence']
         region = self.config_data['region']['extent']
+        band = self.config_data['band']
 
         # Create save directory if it does not already exist
         if not os.path.exists(save_dir):
@@ -172,16 +198,17 @@ class Utils():
             add_time = 'no_time'
 
         if cadence == 'yearly':
-            save_name = '{}_{}_{}_buffersize_{}_{}'.format(name, year, region, buffer, add_time)
+            save_name = '{}_{}_{}_{}_buffersize_{}_{}'.format(name, band, year, region, buffer, add_time)
+            print(save_name)
         if cadence == 'monthly':
-            save_name = '{}_{}_{}_{}_buffersize_{}_{}'.format(name, month, year, region, buffer, add_time)
+            save_name = '{}_{}_{}_{}_{}_buffersize_{}_{}'.format(name, band, month, year, region, buffer, add_time)
+            print(save_name)
 
         if type(results_data) is xr.core.dataset.Dataset:
             results_data.to_netcdf('{}/{}.nc'.format(save_dir, save_name))
             return True
         else:
             return False
-
 
     def save_img(self, results_data):
         """
@@ -198,7 +225,6 @@ class Utils():
             h5_dataset.attrs['lon'] = results_data['lon']
             h5_dataset.attrs['year'] = self.config_data['year']
 
-
     def save_custom_df(self, results_data):
         """
         If custom lat, lon json list specified, save as
@@ -211,7 +237,7 @@ class Utils():
         buffer = self.config_data['buffer_size']
         cadence = self.config_data['dataset']['t_cadence']
         region = self.config_data['region']['extent']
-        band = self.config_data['dataset']['band']
+        band = self.config_data['band']
 
         # Create save directory if it does not already exist
         if not os.path.exists(save_dir):
@@ -241,3 +267,59 @@ class Utils():
 
         df = pd.DataFrame(data, columns=column_names)
         df.to_csv('{}/{}.csv'.format(save_dir, save_name))
+
+    def check_in_arctic_or_antarctic(self, lat):
+        """
+        Check if lat, lon point is in arctic
+        Useful for nightlight data as GEE throws
+        errors for certain points in Arctic/Antarctica
+        """
+        if float(abs(lat)) >= 80.1:
+            print('in the arctic/antarctica, setting array to defaultValue')
+            return True
+        else:
+            return False
+
+    def check_water_bodies(self, lat, lon):
+        """
+        Check if lat, lon roughly in large water bodies
+        Useful for some GEE datasets for exceptions where
+        greater than allowable pixel size is exceeded due to
+        Earth curvature/other GEE bugs
+        """
+
+        # Check North Pacific
+        if 180 > lon > 150 or -180 < lon < -135:
+            if 26.75 < lat < 47:
+                print('In the Northern Pacific Ocean, setting array to defaultValue')
+                return True
+        # Check North Atlantic
+        if -60.5 < lon < -21.75 and 41 > lat > 25:
+            print('In the Northern Atlantic Ocean, setting array to defaultValue')
+            return True
+        # Check Bering Sea
+        if -180 < lon < -173.5 or lon > 168:
+            if 53 < lat < 59:
+                print('In the Bering Sea, setting array to defaultValue')
+                return True
+        # Check Southern/South Pacific
+        if -171 < lon < -90:
+            if -69 < lat < -36:
+                print('In the South Pacific/Southern Ocean, setting array to defaultValue')
+                return True
+        if -176 < lon < -26:
+            if -63 < lat < -57.5:
+                print('In the South Pacific/Southern Ocean, setting array to defaultValue')
+                return True
+        # Check Indian Ocean
+        if 62 < lon < 98:
+            if -41 < lat < -3:
+                print('In the Indian Ocean, setting array to defaultValue')
+                return True
+        # Check Arctic Ocean/Siberian Sea
+        if lat > 73:
+            if lon > 158 or lon < -129:
+                print('In the Arctic Ocean/Siberian Sea, setting array to defaultValue')
+                return True
+
+        return False

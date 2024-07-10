@@ -1,8 +1,8 @@
 """
-Dictionaries of land cover classes
+Dictionaries of classes for supported GEE datasets
 """
 
-MODIS_LC = {
+MODIS_LC_Type1 = {
     1: {'class': 'evg_conif',
         'pct_cov': 0},
     2: {'class': 'evg_broad',
@@ -40,13 +40,13 @@ MODIS_LC = {
 }
 
 FIRE_LC = {
-    0: {'class': 'crop_rain',
-        'pct_cov': 0},
+    10: {'class': 'crop_rain',
+         'pct_cov': 0},
     20: {'class': 'crop_irr',
          'pct_cov': 0},
-    30: {'class': 'crop_veg',
+    30: {'class': 'mosaic_crop',
          'pct_cov': 0},
-    40: {'class': 'veg_crop',
+    40: {'class': 'mosaic_veg',
          'pct_cov': 0},
     50: {'class': 'broad_ever',
          'pct_cov': 0},
@@ -76,4 +76,37 @@ FIRE_LC = {
           'pct_cov': 0},
     160: {'class': 'unburnt',
           'pct_cov': 0}
+}
+
+GHSL_Built_Class = {
+    1: {'class': 'open_low_veg',
+        'pct_cov': 0},
+    2: {'class': 'open_med_veg',
+        'pct_cov': 0},
+    3: {'class': 'open_high_veg',
+        'pct_cov': 0},
+    4: {'class': 'open_water',
+        'pct_cov': 0},
+    5: {'class': 'open_road',
+        'pct_cov': 0},
+    11: {'class': 'built_res_3',
+         'pct_cov': 0},
+    12: {'class': 'built_res_3-6',
+         'pct_cov': 0},
+    13: {'class': 'built_res_6-15',
+         'pct_cov': 0},
+    14: {'class': 'built_res_15-30',
+         'pct_cov': 0},
+    15: {'class': 'built_res_30',
+         'pct_cov': 0},
+    21: {'class': 'built_non_res_3',
+         'pct_cov': 0},
+    22: {'class': 'built_non_res_3-6',
+         'pct_cov': 0},
+    23: {'class': 'built_non_res_6-15',
+         'pct_cov': 0},
+    24: {'class': 'built_non_res_15-30',
+         'pct_cov': 0},
+    25: {'class': 'build_non_res_30',
+         'pct_cov': 0}
 }

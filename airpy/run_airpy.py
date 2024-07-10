@@ -13,28 +13,32 @@ from utils import Utils
 from processor_modules import ProcessorModules
 from generate_config import GenerateConfig
 import datetime
-import pandas as pd
 
 
 # Initialize ee
 ee.Initialize(opt_url='https://earthengine-highvolume.googleapis.com')
 
 # Argparse arguments for CLI
-parser = argparse.ArgumentParser(description='pyaq pipeline',
+parser = argparse.ArgumentParser(description='airPy pipeline',
                                  formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("--gee_data",
                     help='''
                     Google Earth Engine Dataset of interest. 
                     Must be one of: 
-                    modis, population, fire, or nightlight
+                    modis, population, fire, nightlight, or settlement
+                    ''',
+                    required=True),
+parser.add_argument("--band",
+                    help='''
+                    Band of interest from Google Earth Engine Dataset.
                     ''',
                     required=True),
 parser.add_argument("--region",
                     help='''
                     Boundary region on Earth to extract data
-                    Must be one of: 
+                    Can be one of: 
                     globe, europe, asia, australia, north_america, west_europe, 
-                    east_europe, west_north_america, east_north_america.
+                    east_europe, west_north_america, east_north_america or custom filepath to lat, lon list.
                     ''',
                     required=True),
 parser.add_argument("--date",
@@ -45,14 +49,14 @@ parser.add_argument("--date",
 parser.add_argument("--analysis_type",
                     help='''
                     Type of analysis. Must be one of: 
-                    collection, images, collection_toar
+                    collection, images
                     ''',
                     required=True)
 parser.add_argument("--add_time",
                     help='''
                     Specify if time component added to file.
                     Useful for integrating into time series
-                    ML datasets. Specify y or n
+                    ML datasets. Specify True or False
                     ''',
                     required=True)
 parser.add_argument("--buffer_size",
@@ -70,6 +74,13 @@ parser.add_argument("--save_dir",
                     Specify run save directory
                     ''',
                     required=True)
+parser.add_argument("--save_type",
+                    help='''
+                    Type of file to save features as. Must
+                    be one of csv, netcdf. Default netcdf.
+                    ''',
+                    required=True,
+                    default='netcdf')
 
 
 def getRequests(config_data):
@@ -83,7 +94,8 @@ def getRequests(config_data):
     year = config_data['query_year']
     month = config_data['query_month']
     cadence = config_data['dataset']['t_cadence']
-    band = config_data['dataset']['band']
+    band = config_data['band']
+    resolution = config_data['dataset']['resolution']
     buffer = config_data['buffer_size']
     analysis_type = config_data['analysis_type']
     save_dir = config_data['save_dir']
@@ -104,6 +116,7 @@ def getRequests(config_data):
                     'query_month': month,
                     't_cadence': cadence,
                     'band': band,
+                    'resolution': resolution,
                     'buffer': buffer,
                     'analysis_type': analysis_type,
                     'save_dir': save_dir,
@@ -121,6 +134,7 @@ def getRequests(config_data):
                 'query_month': month,
                 't_cadence': cadence,
                 'band': band,
+                'resolution': resolution,
                 'buffer': buffer,
                 'analysis_type': analysis_type,
                 'save_dir': save_dir,
@@ -142,12 +156,14 @@ def getResult(index, point):
     c_month = point['query_month']
     c_year = point['query_year']
     dataset_name = point['dataset_name']
+    resolution = point['resolution']
     buffer_size = point['buffer']
     analysis_type = point['analysis_type']
 
     utils = Utils(point)
+
     processor_modules = ProcessorModules(point, collection, c_band, c_cadence, c_month, c_year,
-                                         dataset_name, buffer_size, utils)
+                                         dataset_name, resolution, buffer_size, utils)
 
     if analysis_type == 'images':
         return processor_modules.process_collection_for_img()
@@ -165,6 +181,12 @@ def getResult(index, point):
     if dataset_name == 'nightlight':
         return processor_modules.process_nightlight()
 
+    if dataset_name == 'human_settlement_layer_built_up':
+        return processor_modules.process_human_settlement_built()
+
+    if dataset_name == 'global_human_modification':
+        return processor_modules.process_global_human_modification()
+
 
 def saveResults(config_data, results_list):
     """
@@ -176,31 +198,33 @@ def saveResults(config_data, results_list):
     # initialize utils to save and format with config data params
     utils = Utils(config_data)
 
-    # if custom region defined, save as df
-    if config_data['region']['extent'] == 'custom':
-        utils.save_custom_df(results_list)
-
     if config_data['analysis_type'] == 'collection':
-        # format
         # if only one point queried, results_list[0] = results_xr
         if len(results_list) == 1:
             results_xr = results_list[0]
         else:
             results_xr = utils.combine_data(results_list)
         # add time if specified by user
-        if config_data['add_time']:
+        if config_data['add_time'] == 'True':
             results_xr = utils.add_time_data(results_xr)
-        # save results_xr
-        if utils.save_collection(results_xr):
+
+        # Save as filetype desired
+        # csv
+        if config_data['file_type'] == 'csv':
+            utils.save_custom_df(results_list)
             return
-        else:
-            print('Save was unsuccesful!')
+        if config_data['file_type'] == 'netcdf':
+            # netcdf
+            if utils.save_collection(results_xr):
+                return
+            else:
+                print('Save was unsuccessful!')
 
     if config_data['analysis_type'] == 'images':
         if utils.save_imgs(results_list):
             return
         else:
-            print('Save was unsuccesful!')
+            print('Save was unsuccessful!')
 
 
 if __name__ == '__main__':
@@ -212,7 +236,8 @@ if __name__ == '__main__':
 
     # Generate config file from user inputs to run through pipeline
     generate_config = GenerateConfig(args.gee_data, args.region, args.date, args.analysis_type,
-                                     args.add_time, args.buffer_size, args.configs_dir, args.save_dir)
+                                     args.add_time, args.buffer_size, args.configs_dir, args.save_dir,
+                                     args.band, args.save_type)
     data = generate_config.generate_config_dict()
     items = getRequests(data)
     pool = multiprocessing.Pool(25)
