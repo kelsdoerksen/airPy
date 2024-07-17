@@ -80,6 +80,12 @@ and specify the various parameters of the data of interest. The available config
     *   `custom`: Path to custom json file of dictionary `{lats: [], lons: []}`, respectively
 * `--date`: Date of query. Must be in format 'YYYY-MM-DD'
 * `--band`: Dataset band of interest.
+    *    MODIS supports band `LC_Type1`
+    *    Pop supports band `population_density`
+    *    Fire supports band `LandCover`
+    *    Nightlight supports bands `avg_rad` and `cf_cvg`
+    *    Human Settlement Layer Built Up supports band `built_characteristics`
+    *    Global Human Modification supports band `gHM`
 * `--analysis_type`: Type of analysis for data extraction. Must be one of collection, images.
 * `--add_time`: Specify if time component should be added to collection xarray. Useful for integrating into time series ML datasets. One of 'True' or 'False'
 * `--buffer_size`: Specify region of interest (ROI) buffer extent. Units in metres.
