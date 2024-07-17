@@ -7,7 +7,7 @@
             "default_band": "LC_Type1",
             "t_cadence": "yearly",
             "min_date": "2001-01-01",
-            "max_date": "2021-01-01",
+            "max_date": "2022-01-01",
             "resolution": "500"
         },
         "population": {
