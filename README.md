@@ -63,7 +63,7 @@ python run_airpy.py
 and specify the various parameters of the data of interest. The available configurable parameters are:
 * `--gee_data`: The name of the GEE dataset of interest, either modis, pop, fire, or nightlight.
     *    `modis`: MCD12Q1.061 MODIS Land Cover Type Yearly Global 500m, available 2001-01-01 to 2022-01-01
-    *    `pop`: GPWv411: Population Density (Gridded Population of the World Version 4.11), available 2000-01-01 to 2020-01-01
+    *    `population`: GPWv411: Population Density (Gridded Population of the World Version 4.11), available 2000-01-01 to 2020-01-01
     *    `fire`: FireCCI51: MODIS Fire_cci Burned Area Pixel Product, Version 5.1, available 2001-01-01 to 2020-12-01
     *    `nightlight`: VIIRS Nighttime Day/Night Band Composites Version 1, available 2012-04-01 to 2023-01-01
     *    `human_settlement_layer_built_up`: Global Human Settlement Layer (GHSL) built up characteristics, available 2018-01-01 –2018-12-31
